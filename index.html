@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WatOS Status</title>
+    <style>
+        /* Анимация перелива фона */
+        @keyframes backgroundFlow {
+            0% { background-color: #0047AB; }   /* Твой синий */
+            50% { background-color: #000000; }  /* Черный */
+            100% { background-color: #0047AB; } /* Снова синий */
+        }
+
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            /* Применяем анимацию: 10 секунд, плавно, бесконечно */
+            animation: backgroundFlow 10s ease-in-out infinite;
+            font-family: 'Segoe UI', Roboto, sans-serif;
+            color: white;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        .version-tag {
+            position: absolute;
+            top: 20px;
+            right: 25px;
+            font-size: 14px;
+            opacity: 0.4;
+        }
+
+        .main-card {
+            padding: 40px;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin: 0 0 10px 0;
+            font-weight: 700;
+        }
+
+        p {
+            font-size: 1.2rem;
+            opacity: 0.8;
+            margin-bottom: 30px;
+        }
+
+        .tg-link {
+            display: inline-block;
+            padding: 12px 30px;
+            background-color: #24A1DE;
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 50px;
+            transition: 0.3s;
+        }
+
+        .tg-link:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(36, 161, 222, 0.5);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="version-tag">WatOS build v0 Версия не вышла</div>
+
+    <div class="main-card">
+        <h1>ОС WatOS официально не вышла</h1>
+        <p>Мы не знаем, когда приступим</p>
+        
+        <a href="https://t.me/Alexander11251kopik" target="_blank" class="tg-link">
+            Написать в Telegram
+        </a>
+    </div>
+
+</body>
+</html>
