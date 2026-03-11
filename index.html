@@ -3,13 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WatOS Status</title>
+    <title>WaterOS | Скоро</title>
     <style>
-        /* Анимация перелива фона */
-        @keyframes backgroundFlow {
-            0% { background-color: #0047AB; }   /* Твой синий */
-            50% { background-color: #000000; }  /* Черный */
-            100% { background-color: #0047AB; } /* Снова синий */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         body {
@@ -18,72 +16,108 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            /* Применяем анимацию: 10 секунд, плавно, бесконечно */
-            animation: backgroundFlow 10s ease-in-out infinite;
-            font-family: 'Segoe UI', Roboto, sans-serif;
+            background-color: #003a8c; 
+            font-family: 'Segoe UI', Arial, sans-serif;
             color: white;
-            text-align: center;
             overflow: hidden;
-        }
-
-        .version-tag {
-            position: absolute;
-            top: 20px;
-            right: 25px;
-            font-size: 14px;
-            opacity: 0.4;
+            cursor: pointer; /* Подсказка, что можно кликнуть */
         }
 
         .main-card {
             padding: 40px;
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(10px);
+            background: #0054b4; 
+            border-radius: 40px;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.4);
+            max-width: 400px;
+            width: 90%;
+            text-align: center;
+            animation: fadeInUp 1s ease-out forwards;
+            position: relative;
+            z-index: 2;
+        }
+
+        .logo-img {
+            width: 140px;
+            height: 140px;
             border-radius: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+            margin-bottom: 20px;
+            object-fit: cover;
+            animation: float 4s ease-in-out infinite;
         }
 
-        h1 {
-            font-size: 2.5rem;
-            margin: 0 0 10px 0;
-            font-weight: 700;
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
         }
 
-        p {
-            font-size: 1.2rem;
-            opacity: 0.8;
-            margin-bottom: 30px;
-        }
+        h1 { font-size: 3rem; margin: 10px 0; font-weight: 900; letter-spacing: 2px; }
+        p { opacity: 0.8; font-size: 1.1rem; margin-bottom: 30px; }
 
-        .tg-link {
-            display: inline-block;
-            padding: 12px 30px;
-            background-color: #24A1DE;
-            color: white;
+        #timer { display: flex; justify-content: center; gap: 15px; margin-bottom: 40px; }
+        .time-box { background: rgba(255, 255, 255, 0.1); padding: 15px; border-radius: 15px; min-width: 70px; }
+        .time-val { font-size: 1.8rem; font-weight: bold; display: block; }
+        .time-lab { font-size: 0.7rem; opacity: 0.6; text-transform: uppercase; }
+
+        .btn {
+            display: block;
+            padding: 18px 20px;
+            background: white;
+            color: black;
             text-decoration: none;
-            font-weight: bold;
+            font-weight: 800;
             border-radius: 50px;
+            font-size: 1.1rem;
             transition: 0.3s;
         }
+        .btn:hover { transform: scale(1.05); background: #f0f0f0; }
 
-        .tg-link:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 20px rgba(36, 161, 222, 0.5);
-        }
+        /* Скрытый плеер */
+        #music-player { display: none; }
     </style>
 </head>
 <body>
 
-    <div class="version-tag">WatOS build v0 Версия не вышла</div>
+    <!-- Плеер с треком (инструментал) -->
+    <iframe id="music-player" width="0" height="0" src="https://www.youtube.com" frameborder="0"></iframe>
 
     <div class="main-card">
-        <h1>ОС WatOS официально не вышла</h1>
-        <p>Мы не знаем, когда приступим</p>
+        <img src="logo.png" alt="Logo" class="logo-img">
+        <h1>WATEROS</h1>
+        <p>Официальный запуск проекта через:</p>
+
+        <div id="timer">
+            <div class="time-box"><span id="d" class="time-val">00</span><span class="time-lab">дней</span></div>
+            <div class="time-box"><span id="h" class="time-val">00</span><span class="time-lab">часов</span></div>
+            <div class="time-box"><span id="m" class="time-val">00</span><span class="time-lab">мин</span></div>
+        </div>
         
-        <a href="https://t.me/Alexander11251kopik" target="_blank" class="tg-link">
-            Написать в Telegram
-        </a>
+        <a href="https://t.me/Alexander11251kopik" target="_blank" class="btn">Telegram проекта</a>
     </div>
 
+    <script>
+        // Скрипт для запуска музыки при первом клике пользователя
+        let musicStarted = false;
+        document.body.addEventListener('click', function() {
+            if (!musicStarted) {
+                const player = document.getElementById('music-player');
+                player.src += "&autoplay=1";
+                musicStarted = true;
+            }
+        });
+
+        // Таймер
+        const end = new Date("May 14, 2026 00:00:00").getTime();
+        function update() {
+            const now = new Date().getTime();
+            const distance = end - now;
+            if (distance > 0) {
+                document.getElementById("d").innerHTML = Math.floor(distance / (1000 * 60 * 60 * 24));
+                document.getElementById("h").innerHTML = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)).toString().padStart(2, '0');
+                document.getElementById("m").innerHTML = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)).toString().padStart(2, '0');
+            }
+        }
+        setInterval(update, 1000);
+        update();
+    </script>
 </body>
 </html>
